@@ -10,6 +10,11 @@ function CreateTask({ taskList, setTaskList }) {
 	}
 
 	function addTask() {
+		// Prevents adding if textbox is emptys
+		if (taskInput.trim() === '') {
+			alert('Task cannot be empty');
+			return; // Stop the function
+		}
 		setTaskList([
 			...taskList,
 			{
@@ -28,6 +33,10 @@ function CreateTask({ taskList, setTaskList }) {
 			<input
 				value={taskInput}
 				onChange={saveTaskInput}
+				// Press 'Enter' to add task
+				onKeyDown={(e) => {
+					if (e.key === 'Enter') addTask();
+				}}
 				placeholder='Assign task here..'
 			/>
 			<button onClick={addTask}>Add</button>
