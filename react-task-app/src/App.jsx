@@ -18,10 +18,16 @@ function App() {
 		},
 	]);
 
+	// Delete Task Logic
+	function deleteTask(id) {
+		// Updater function + filter to delete each task (id)
+		setTaskList(taskList.filter((task) => task.id !== id));
+	}
+
 	return (
 		<>
 			<CreateTask taskList={taskList} setTaskList={setTaskList} />
-			<RenderTasks taskList={taskList} />
+			<RenderTasks taskList={taskList} deleteTask={deleteTask} />
 		</>
 	);
 }
