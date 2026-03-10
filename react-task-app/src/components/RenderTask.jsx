@@ -1,3 +1,5 @@
+import dayjs from 'dayjs';
+
 // Display Tasks
 // This is where we call deleteTask
 function RenderTask({ task, status, user, deadline, id, deleteTask }) {
@@ -7,7 +9,7 @@ function RenderTask({ task, status, user, deadline, id, deleteTask }) {
 				Task: {task} <button onClick={() => deleteTask(id)}>Delete</button>
 			</p>
 			<p>Assigned to: {user}</p>
-			<p>Deadline: {deadline}</p>
+			<p>Deadline: {dayjs(deadline).format('MMMM, D, YYYY')}</p>
 			<span>Status: {status}</span>
 		</div>
 	);
