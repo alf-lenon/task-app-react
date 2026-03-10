@@ -1,12 +1,13 @@
 // Display Tasks
 // This is where we call deleteTask
-function RenderTask({ task, status, id, deleteTask }) {
+function RenderTask({ task, status, user, id, deleteTask }) {
 	return (
-		<div>
+		<div className='task-section'>
 			<p>
-				{task} <button onClick={() => deleteTask(id)}>Delete</button>
+				Task: {task} <button onClick={() => deleteTask(id)}>Delete</button>
 			</p>
-			<span>{status}</span>
+			<p>Assigned to: {user}</p>
+			<span>Status: {status}</span>
 		</div>
 	);
 }

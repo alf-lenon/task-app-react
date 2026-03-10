@@ -9,8 +9,10 @@ function RenderTasks({ taskList, deleteTask }) {
 			{taskList.map((task) => {
 				return (
 					<RenderTask
+						key={task.id}
 						task={task.title}
 						status={task.status}
+						user={task.user}
 						id={task.id}
 						deleteTask={deleteTask}
 					/>

@@ -9,11 +9,7 @@ function App() {
 		{
 			title: 'Clean',
 			status: 'pending',
-			id: crypto.randomUUID(),
-		},
-		{
-			title: 'Clean the kitchen',
-			status: 'pending',
+
 			id: crypto.randomUUID(),
 		},
 	]);

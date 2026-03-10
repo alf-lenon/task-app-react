@@ -3,6 +3,7 @@ import { useState } from 'react';
 // Create Task Component
 function CreateTask({ taskList, setTaskList }) {
 	const [taskInput, setTaskInput] = useState('');
+	const [selecterUser, setSelectedUser] = useState('Alf');
 
 	// Save the input value
 	function saveTaskInput(event) {
@@ -20,6 +21,7 @@ function CreateTask({ taskList, setTaskList }) {
 			{
 				title: taskInput,
 				status: 'pending',
+				user: selecterUser,
 				id: crypto.randomUUID(),
 			},
 		]);
@@ -27,10 +29,11 @@ function CreateTask({ taskList, setTaskList }) {
 		// Clear the input text
 		setTaskInput('');
 	}
+
 	return (
-		<>
-			<h1>Assign Task</h1>
+		<div className='task-section'>
 			<input
+				className='task-input'
 				value={taskInput}
 				onChange={saveTaskInput}
 				// Press 'Enter' to add task
@@ -39,8 +42,17 @@ function CreateTask({ taskList, setTaskList }) {
 				}}
 				placeholder='Assign task here..'
 			/>
+
+			<select
+				value={selecterUser}
+				onChange={(event) => setSelectedUser(event.target.value)}
+			>
+				<option value='Alf'>Alf</option>
+				<option value='Princess'>Princess</option>
+			</select>
+
 			<button onClick={addTask}>Add</button>
-		</>
+		</div>
 	);
 }
 
