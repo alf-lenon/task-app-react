@@ -9,7 +9,6 @@ function App() {
 		{
 			title: 'Clean',
 			status: 'pending',
-
 			id: crypto.randomUUID(),
 		},
 	]);

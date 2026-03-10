@@ -10,10 +10,11 @@ function RenderTasks({ taskList, deleteTask }) {
 				return (
 					<RenderTask
 						key={task.id}
+						id={task.id}
 						task={task.title}
 						status={task.status}
 						user={task.user}
-						id={task.id}
+						deadline={task.deadline}
 						deleteTask={deleteTask}
 					/>
 				);

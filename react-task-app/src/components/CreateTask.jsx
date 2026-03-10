@@ -2,8 +2,9 @@ import { useState } from 'react';
 
 // Create Task Component
 function CreateTask({ taskList, setTaskList }) {
-	const [taskInput, setTaskInput] = useState('');
-	const [selecterUser, setSelectedUser] = useState('Alf');
+	const [taskInput, setTaskInput] = useState(''); // Input Value
+	const [selectedUser, setSelectedUser] = useState('Alf'); // Selected User Value
+	const [selectedDeadline, setSelectedDeadline] = useState('');
 
 	// Save the input value
 	function saveTaskInput(event) {
@@ -11,23 +12,35 @@ function CreateTask({ taskList, setTaskList }) {
 	}
 
 	function addTask() {
-		// Prevents adding if textbox is emptys
+		// Prevents adding empty task
 		if (taskInput.trim() === '') {
 			alert('Task cannot be empty');
 			return; // Stop the function
 		}
-		setTaskList([
+
+		// Prevents adding empty date
+		if (selectedDeadline === '') {
+			alert('Select a deadline');
+			return; // Stop the function
+		}
+		const newTaskList = [
 			...taskList,
 			{
+				id: crypto.randomUUID(),
 				title: taskInput,
 				status: 'pending',
-				user: selecterUser,
-				id: crypto.randomUUID(),
+				user: selectedUser,
+				deadline: selectedDeadline,
 			},
-		]);
+		];
+		// Update the taskList
+		setTaskList(newTaskList);
 
 		// Clear the input text
 		setTaskInput('');
+
+		// Clear the date
+		setSelectedDeadline('');
 	}
 
 	return (
@@ -44,12 +57,18 @@ function CreateTask({ taskList, setTaskList }) {
 			/>
 
 			<select
-				value={selecterUser}
+				value={selectedUser}
 				onChange={(event) => setSelectedUser(event.target.value)}
 			>
 				<option value='Alf'>Alf</option>
 				<option value='Princess'>Princess</option>
 			</select>
+
+			<input
+				value={selectedDeadline}
+				onChange={(event) => setSelectedDeadline(event.target.value)}
+				type='date'
+			/>
 
 			<button onClick={addTask}>Add</button>
 		</div>
