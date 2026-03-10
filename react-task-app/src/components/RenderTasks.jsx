@@ -2,7 +2,7 @@ import RenderTask from './RenderTask';
 
 // Render Tasks Logic
 // Receives deleteTask
-function RenderTasks({ taskList, deleteTask }) {
+function RenderTasks({ taskList, deleteTask, updateTask }) {
 	// Generate into HTML
 	return (
 		<div>
@@ -16,6 +16,7 @@ function RenderTasks({ taskList, deleteTask }) {
 						user={task.user}
 						deadline={task.deadline}
 						deleteTask={deleteTask}
+						updateTask={updateTask}
 					/>
 				);
 			})}

@@ -21,10 +21,23 @@ function App() {
 		setTaskList(taskList.filter((task) => task.id !== id));
 	}
 
+	// Save and update task after editing
+	function updateTask(id, newTitle) {
+		setTaskList(
+			taskList.map((task) =>
+				task.id === id ? { ...task, title: newTitle } : task,
+			),
+		);
+	}
+
 	return (
 		<>
 			<CreateTask taskList={taskList} setTaskList={setTaskList} />
-			<RenderTasks taskList={taskList} deleteTask={deleteTask} />
+			<RenderTasks
+				taskList={taskList}
+				deleteTask={deleteTask}
+				updateTask={updateTask}
+			/>
 		</>
 	);
 }
