@@ -4,6 +4,9 @@ import RenderTasks from './components/RenderTasks';
 import './App.css';
 
 function App() {
+	// State for the current dashboard
+	const [currentUser, setCurrentUser] = useState('admin');
+
 	// First: Load saved data
 	const [taskList, setTaskList] = useState(() => {
 		const savedTasks = localStorage.getItem('tasks');
@@ -23,12 +26,17 @@ function App() {
 
 	// Save and update task after editing
 	function updateTask(id, newTitle) {
-		setTaskList(
-			taskList.map(
-				(task) => (task.id === id ? { ...task, title: newTitle } : task), // newTitle = editedTask
+		setTaskList((prev) =>
+			prev.map((task) =>
+				task.id === id ? { ...task, title: newTitle } : task,
 			),
 		);
 	}
+
+	const visibleTasks =
+		currentUser === 'admin'
+			? taskList
+			: taskList.filter((task) => task.user === currentUser);
 
 	return (
 		<div className='min-h-screen bg-gray-100 flex justify-center p-6'>
@@ -37,10 +45,36 @@ function App() {
 					React Task Manager
 				</h1>
 
-				<CreateTask taskList={taskList} setTaskList={setTaskList} />
+				{/* Dashboard Switch */}
+				<div className='flex gap-2 mb-6 justify-center'>
+					<button
+						className='bg-gray-200 px-3 py-1 rounded cursor-pointer'
+						onClick={() => setCurrentUser('admin')}
+					>
+						Admin
+					</button>
+
+					<button
+						className='bg-gray-200 px-3 py-1 rounded cursor-pointer'
+						onClick={() => setCurrentUser('Alf')}
+					>
+						Alf
+					</button>
+
+					<button
+						className='bg-gray-200 px-3 py-1 rounded cursor-pointer'
+						onClick={() => setCurrentUser('Princess')}
+					>
+						Princess
+					</button>
+				</div>
+
+				{currentUser === 'admin' && (
+					<CreateTask taskList={taskList} setTaskList={setTaskList} />
+				)}
 
 				<RenderTasks
-					taskList={taskList}
+					taskList={visibleTasks}
 					deleteTask={deleteTask}
 					updateTask={updateTask}
 				/>
