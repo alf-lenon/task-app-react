@@ -44,33 +44,41 @@ function CreateTask({ taskList, setTaskList }) {
 	}
 
 	return (
-		<div className='task-section'>
-			<input
-				className='task-input'
-				value={taskInput}
-				onChange={saveTaskInput}
-				// Press 'Enter' to add task
-				onKeyDown={(e) => {
-					if (e.key === 'Enter') addTask();
-				}}
-				placeholder='Assign task here..'
-			/>
+		<div className='bg-white p-4 rounded-lg shadow mb-6'>
+			<div className='flex flex-col sm:flex-row gap-3'>
+				<input
+					className='border p-2 rounded flex-1'
+					value={taskInput}
+					onChange={saveTaskInput}
+					onKeyDown={(e) => {
+						if (e.key === 'Enter') addTask();
+					}}
+					placeholder='Assign task...'
+				/>
 
-			<select
-				value={selectedUser}
-				onChange={(event) => setSelectedUser(event.target.value)}
-			>
-				<option value='Alf'>Alf</option>
-				<option value='Princess'>Princess</option>
-			</select>
+				<select
+					className='border p-2 rounded'
+					value={selectedUser}
+					onChange={(event) => setSelectedUser(event.target.value)}
+				>
+					<option value='Alf'>Alf</option>
+					<option value='Princess'>Princess</option>
+				</select>
 
-			<input
-				value={selectedDeadline}
-				onChange={(event) => setSelectedDeadline(event.target.value)}
-				type='date'
-			/>
+				<input
+					className='border p-2 rounded'
+					value={selectedDeadline}
+					onChange={(event) => setSelectedDeadline(event.target.value)}
+					type='date'
+				/>
 
-			<button onClick={addTask}>Add</button>
+				<button
+					className='bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition'
+					onClick={addTask}
+				>
+					Add
+				</button>
+			</div>
 		</div>
 	);
 }

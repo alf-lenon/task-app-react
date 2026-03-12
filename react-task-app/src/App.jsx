@@ -18,27 +18,34 @@ function App() {
 	// Delete Task Logic
 	function deleteTask(id) {
 		// Updater function + filter to delete each task (id)
-		setTaskList(taskList.filter((task) => task.id !== id));
+		setTaskList((prev) => prev.filter((task) => task.id !== id));
 	}
 
 	// Save and update task after editing
 	function updateTask(id, newTitle) {
 		setTaskList(
-			taskList.map((task) =>
-				task.id === id ? { ...task, title: newTitle } : task,
+			taskList.map(
+				(task) => (task.id === id ? { ...task, title: newTitle } : task), // newTitle = editedTask
 			),
 		);
 	}
 
 	return (
-		<>
-			<CreateTask taskList={taskList} setTaskList={setTaskList} />
-			<RenderTasks
-				taskList={taskList}
-				deleteTask={deleteTask}
-				updateTask={updateTask}
-			/>
-		</>
+		<div className='min-h-screen bg-gray-100 flex justify-center p-6'>
+			<div className='w-full max-w-2xl'>
+				<h1 className='text-3xl font-bold mb-6 text-center'>
+					React Task Manager
+				</h1>
+
+				<CreateTask taskList={taskList} setTaskList={setTaskList} />
+
+				<RenderTasks
+					taskList={taskList}
+					deleteTask={deleteTask}
+					updateTask={updateTask}
+				/>
+			</div>
+		</div>
 	);
 }
 

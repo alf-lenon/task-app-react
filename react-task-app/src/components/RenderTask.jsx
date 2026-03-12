@@ -1,5 +1,5 @@
-import dayjs from 'dayjs';
 import { useState } from 'react';
+import dayjs from 'dayjs';
 
 function RenderTask({
 	task,
@@ -25,7 +25,7 @@ function RenderTask({
 	const isOverdue = dayjs().isAfter(dayjs(deadline), 'day'); // Overdue status logic
 
 	return (
-		<div className='task-section'>
+		<div className='bg-white p-4 rounded-lg shadow mb-4'>
 			{isEditing ? (
 				<>
 					<input
@@ -36,19 +36,37 @@ function RenderTask({
 				</>
 			) : (
 				<>
-					<p>
-						Task: {task}
-						<button onClick={() => deleteTask(id)}>Delete</button>
-						<button onClick={() => startEdit(id)}>Edit</button>
+					<div className='flex justify-between items-start'>
+						<h2 className='font-semibold text-lg'>{task}</h2>
+
+						<div className='flex gap-2'>
+							<button
+								className='text-blue-500 hover:underline'
+								onClick={() => startEdit(id)}
+							>
+								Edit
+							</button>
+
+							<button
+								className='text-red-500 hover:underline'
+								onClick={() => deleteTask(id)}
+							>
+								Delete
+							</button>
+						</div>
+					</div>
+
+					<p className='text-sm text-gray-600 mt-2'>Assigned to: {user}</p>
+
+					<p className='text-sm text-gray-600'>
+						Deadline: {dayjs(deadline).format('MMMM D, YYYY')}
 					</p>
 
-					<p>Assigned to: {user}</p>
-
-					<p>Deadline: {dayjs(deadline).format('MMMM D, YYYY')}</p>
-
-					<span>Status: {isOverdue ? 'Overdue' : status}</span>
-
-					{isOverdue && <p style={{ color: 'red' }}>⚠️ Overdue</p>}
+					<p
+						className={`mt-2 text-sm font-medium ${isOverdue ? 'text-red-500' : 'text-green-600'}`}
+					>
+						Status: {isOverdue ? 'Overdue' : status}
+					</p>
 				</>
 			)}
 		</div>

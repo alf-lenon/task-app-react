@@ -5,7 +5,7 @@ import RenderTask from './RenderTask';
 function RenderTasks({ taskList, deleteTask, updateTask }) {
 	// Generate into HTML
 	return (
-		<div>
+		<div className='grid gap-4 sm:grid-cols-2'>
 			{taskList.map((task) => {
 				return (
 					<RenderTask
