@@ -2,7 +2,15 @@ import RenderTask from './RenderTask';
 
 // Render Tasks Logic
 // Receives deleteTask
-function RenderTasks({ taskList, deleteTask, updateTask }) {
+function RenderTasks({
+	taskList,
+	deleteTask,
+	updateTask,
+	submitProof,
+	approveTask,
+	rejectTask,
+	currentUser,
+}) {
 	// Generate into HTML
 	return (
 		<div className='grid gap-4 sm:grid-cols-2'>
@@ -15,8 +23,14 @@ function RenderTasks({ taskList, deleteTask, updateTask }) {
 						status={task.status}
 						user={task.user}
 						deadline={task.deadline}
+						proof={task.proof}
+						approvalStatus={task.approvalStatus}
 						deleteTask={deleteTask}
 						updateTask={updateTask}
+						submitProof={submitProof}
+						approveTask={approveTask}
+						rejectTask={rejectTask}
+						currentUser={currentUser}
 					/>
 				);
 			})}

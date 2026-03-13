@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import CreateTask from './components/CreateTask';
 import RenderTasks from './components/RenderTasks';
-import './App.css';
 
 function App() {
 	// State for the current dashboard
@@ -29,6 +28,47 @@ function App() {
 		setTaskList((prev) =>
 			prev.map((task) =>
 				task.id === id ? { ...task, title: newTitle } : task,
+			),
+		);
+	}
+
+	// USER: Submit proof
+	function submitProof(id, proofImage) {
+		setTaskList((prev) =>
+			prev.map((task) =>
+				task.id === id
+					? {
+							...task,
+							proof: proofImage,
+							status: 'completed',
+							approvalStatus: 'pending',
+						}
+					: task,
+			),
+		);
+	}
+
+	// ADMIN: Approve task
+	function approveTask(id) {
+		setTaskList((prev) =>
+			prev.map((task) =>
+				task.id === id ? { ...task, approvalStatus: 'approved' } : task,
+			),
+		);
+	}
+
+	// ADMIN: Reject task
+	function rejectTask(id) {
+		setTaskList((prev) =>
+			prev.map((task) =>
+				task.id === id
+					? {
+							...task,
+							approvalStatus: 'rejected',
+							status: 'pending',
+							proof: null,
+						}
+					: task,
 			),
 		);
 	}
@@ -77,6 +117,10 @@ function App() {
 					taskList={visibleTasks}
 					deleteTask={deleteTask}
 					updateTask={updateTask}
+					submitProof={submitProof}
+					approveTask={approveTask}
+					rejectTask={rejectTask}
+					currentUser={currentUser}
 				/>
 			</div>
 		</div>

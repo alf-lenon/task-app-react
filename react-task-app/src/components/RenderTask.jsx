@@ -1,73 +1,76 @@
-import { useState } from 'react';
-import dayjs from 'dayjs';
+import ProofUploader from './ProofUploader';
+import ProofModal from './ProofModal';
+import EditTaskInput from './EditTaskInput';
+import StatusBadge from './StatusBadge';
 
 function RenderTask({
+	id,
+	submitProof,
+	approveTask,
+	rejectTask,
+	currentUser,
+	proof,
+	approvalStatus,
 	task,
 	status,
 	user,
 	deadline,
-	id,
 	deleteTask,
 	updateTask,
 }) {
-	const [isEditing, setIsEditing] = useState(false); // isEditing = are we editing the task? (false) not yet
-	const [editedTask, setEditedTask] = useState(task); // editedTask = the new task title
+	// Image upload logic
+	function handleProofUpload(e) {
+		const file = e.target.files[0];
+		if (!file) return;
 
-	function startEdit() {
-		setIsEditing(true);
+		const reader = new FileReader();
+
+		reader.onloadend = () => {
+			submitProof(id, reader.result); // id, proofImage
+		};
+
+		reader.readAsDataURL(file);
 	}
-
-	function saveEdit() {
-		updateTask(id, editedTask);
-		setIsEditing(false);
-	}
-
-	const isOverdue = dayjs().isAfter(dayjs(deadline), 'day'); // Overdue status logic
 
 	return (
-		<div className='bg-white p-4 rounded-lg shadow mb-4'>
-			{isEditing ? (
-				<>
-					<input
-						value={editedTask}
-						onChange={(e) => setEditedTask(e.target.value)}
-					/>
-					<button onClick={saveEdit}>Save</button>
-				</>
-			) : (
-				<>
-					<div className='flex justify-between items-start'>
-						<h2 className='font-semibold text-lg'>{task}</h2>
+		<div className='bg-white p-4 rounded shadow mb-4'>
+			<EditTaskInput
+				id={id}
+				task={task}
+				status={status}
+				user={user}
+				deadline={deadline}
+				deleteTask={deleteTask}
+				updateTask={updateTask}
+			/>
 
-						<div className='flex gap-2'>
-							<button
-								className='text-blue-500 hover:underline'
-								onClick={() => startEdit(id)}
-							>
-								Edit
-							</button>
+			<ProofUploader
+				currentUser={currentUser}
+				proof={proof}
+				handleProofUpload={handleProofUpload}
+			/>
 
-							<button
-								className='text-red-500 hover:underline'
-								onClick={() => deleteTask(id)}
-							>
-								Delete
-							</button>
-						</div>
-					</div>
+			<ProofModal currentUser={currentUser} proof={proof} />
 
-					<p className='text-sm text-gray-600 mt-2'>Assigned to: {user}</p>
+			<StatusBadge approvalStatus={approvalStatus} />
 
-					<p className='text-sm text-gray-600'>
-						Deadline: {dayjs(deadline).format('MMMM D, YYYY')}
-					</p>
-
-					<p
-						className={`mt-2 text-sm font-medium ${isOverdue ? 'text-red-500' : 'text-green-600'}`}
+			{/* ADMIN Approve / Reject */}
+			{currentUser === 'admin' && proof && approvalStatus === 'pending' && (
+				<div className='flex gap-2 mt-2'>
+					<button
+						onClick={() => approveTask(id)}
+						className='bg-green-200 px-2 py-1 rounded cursor-pointer'
 					>
-						Status: {isOverdue ? 'Overdue' : status}
-					</p>
-				</>
+						Approve
+					</button>
+
+					<button
+						onClick={() => rejectTask(id)}
+						className='bg-red-200 px-2 py-1 rounded cursor-pointer'
+					>
+						Reject
+					</button>
+				</div>
 			)}
 		</div>
 	);

@@ -31,6 +31,8 @@ function CreateTask({ taskList, setTaskList }) {
 				status: 'pending',
 				user: selectedUser,
 				deadline: selectedDeadline,
+				proof: null, // will hold base64 string of uploaded image
+				approvalStatus: 'pending', // pending, approved, rejected
 			},
 		];
 		// Update the taskList
