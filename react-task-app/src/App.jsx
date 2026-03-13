@@ -98,26 +98,27 @@ function App() {
 				{/* Dashboard Switch */}
 				<div className='flex gap-2 mb-6 justify-center'>
 					<button
-						className='bg-gray-200 px-3 py-1 rounded cursor-pointer'
+						className={`bg-gray-200 px-3 py-1 rounded cursor-pointer ${currentUser === 'admin' ? 'bg-green-500 text-white' : 'bg-gray-200'}`}
 						onClick={() => setCurrentUser('admin')}
 					>
 						Admin
 					</button>
 
 					<button
-						className='bg-gray-200 px-3 py-1 rounded cursor-pointer'
+						className={`bg-gray-200 px-3 py-1 rounded cursor-pointer ${currentUser === 'Alf' ? 'bg-green-500 text-white' : 'bg-gray-200'}`}
 						onClick={() => setCurrentUser('Alf')}
 					>
 						Alf
 					</button>
 
 					<button
-						className='bg-gray-200 px-3 py-1 rounded cursor-pointer'
+						className={`bg-gray-200 px-3 py-1 rounded cursor-pointer ${currentUser === 'Princess' ? 'bg-green-500 text-white' : 'bg-gray-200'}`}
 						onClick={() => setCurrentUser('Princess')}
 					>
 						Princess
 					</button>
 				</div>
+
 				<TaskFilters filter={filter} setFilter={setFilter} />
 				{currentUser === 'admin' && (
 					<CreateTask taskList={taskList} setTaskList={setTaskList} />
