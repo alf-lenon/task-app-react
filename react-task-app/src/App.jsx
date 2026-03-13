@@ -122,35 +122,45 @@ function App() {
 				<div className='flex gap-2 mb-4 flex-wrap'>
 					<button
 						onClick={() => setFilter('all')}
-						className='bg-gray-200 px-3 py-1 rounded'
+						className={`px-3 py-1 rounded ${
+							filter === 'all' ? 'bg-gray-500 text-white' : 'bg-gray-200'
+						}`}
 					>
 						All
 					</button>
 
 					<button
 						onClick={() => setFilter('pending')}
-						className='bg-gray-200 px-3 py-1 rounded'
+						className={`px-3 py-1 rounded ${
+							filter === 'pending' ? 'bg-pink-500 text-white' : 'bg-gray-200'
+						}`}
 					>
 						Pending
 					</button>
 
 					<button
 						onClick={() => setFilter('waiting')}
-						className='bg-yellow-200 px-3 py-1 rounded'
+						className={`px-3 py-1 rounded ${
+							filter === 'waiting' ? 'bg-yellow-500 text-white' : 'bg-gray-200'
+						}`}
 					>
 						Waiting Approval
 					</button>
 
 					<button
 						onClick={() => setFilter('approved')}
-						className='bg-green-200 px-3 py-1 rounded'
+						className={`px-3 py-1 rounded ${
+							filter === 'approved' ? 'bg-green-500 text-white' : 'bg-gray-200'
+						}`}
 					>
 						Approved
 					</button>
 
 					<button
 						onClick={() => setFilter('rejected')}
-						className='bg-red-200 px-3 py-1 rounded'
+						className={`px-3 py-1 rounded ${
+							filter === 'rejected' ? 'bg-red-500 text-white' : 'bg-gray-200'
+						}`}
 					>
 						Rejected
 					</button>
