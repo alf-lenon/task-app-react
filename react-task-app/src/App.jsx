@@ -73,10 +73,20 @@ function App() {
 		);
 	}
 
-	const visibleTasks =
-		currentUser === 'admin'
-			? taskList
-			: taskList.filter((task) => task.user === currentUser);
+	const [filter, setFilter] = useState('all'); // 'all' === 'filter'
+	// Dashboard View (Admin || Users)
+	const visibleTasks = taskList
+		.filter((task) =>
+			currentUser === 'admin' ? true : task.user === currentUser,
+		)
+		// Filter Tasks Logic
+		.filter((task) => {
+			if (filter === 'all') return true; // admin dashboard view || show all tasks
+			if (filter === 'pending') return task.status === 'pending';
+			if (filter === 'waiting') return task.approvalStatus === 'pending';
+			if (filter === 'approved') return task.approvalStatus === 'approved';
+			if (filter === 'rejected') return task.approvalStatus === 'rejected';
+		});
 
 	return (
 		<div className='min-h-screen bg-gray-100 flex justify-center p-6'>
@@ -106,6 +116,43 @@ function App() {
 						onClick={() => setCurrentUser('Princess')}
 					>
 						Princess
+					</button>
+				</div>
+
+				<div className='flex gap-2 mb-4 flex-wrap'>
+					<button
+						onClick={() => setFilter('all')}
+						className='bg-gray-200 px-3 py-1 rounded'
+					>
+						All
+					</button>
+
+					<button
+						onClick={() => setFilter('pending')}
+						className='bg-gray-200 px-3 py-1 rounded'
+					>
+						Pending
+					</button>
+
+					<button
+						onClick={() => setFilter('waiting')}
+						className='bg-yellow-200 px-3 py-1 rounded'
+					>
+						Waiting Approval
+					</button>
+
+					<button
+						onClick={() => setFilter('approved')}
+						className='bg-green-200 px-3 py-1 rounded'
+					>
+						Approved
+					</button>
+
+					<button
+						onClick={() => setFilter('rejected')}
+						className='bg-red-200 px-3 py-1 rounded'
+					>
+						Rejected
 					</button>
 				</div>
 
