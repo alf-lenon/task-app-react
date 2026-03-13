@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import CreateTask from './components/CreateTask';
 import RenderTasks from './components/RenderTasks';
+import TaskFilters from './components/TaskFilters';
 
 function App() {
 	// State for the current dashboard
@@ -73,7 +74,7 @@ function App() {
 		);
 	}
 
-	const [filter, setFilter] = useState('all'); // 'all' === 'filter'
+	const [filter, setFilter] = useState('all'); // current selected filter
 	// Dashboard View (Admin || Users)
 	const visibleTasks = taskList
 		.filter((task) =>
@@ -94,7 +95,6 @@ function App() {
 				<h1 className='text-3xl font-bold mb-6 text-center'>
 					React Task Manager
 				</h1>
-
 				{/* Dashboard Switch */}
 				<div className='flex gap-2 mb-6 justify-center'>
 					<button
@@ -118,58 +118,10 @@ function App() {
 						Princess
 					</button>
 				</div>
-
-				<div className='flex gap-2 mb-4 flex-wrap'>
-					<button
-						onClick={() => setFilter('all')}
-						className={`px-3 py-1 rounded ${
-							filter === 'all' ? 'bg-gray-500 text-white' : 'bg-gray-200'
-						}`}
-					>
-						All
-					</button>
-
-					<button
-						onClick={() => setFilter('pending')}
-						className={`px-3 py-1 rounded ${
-							filter === 'pending' ? 'bg-pink-500 text-white' : 'bg-gray-200'
-						}`}
-					>
-						Pending
-					</button>
-
-					<button
-						onClick={() => setFilter('waiting')}
-						className={`px-3 py-1 rounded ${
-							filter === 'waiting' ? 'bg-yellow-500 text-white' : 'bg-gray-200'
-						}`}
-					>
-						Waiting Approval
-					</button>
-
-					<button
-						onClick={() => setFilter('approved')}
-						className={`px-3 py-1 rounded ${
-							filter === 'approved' ? 'bg-green-500 text-white' : 'bg-gray-200'
-						}`}
-					>
-						Approved
-					</button>
-
-					<button
-						onClick={() => setFilter('rejected')}
-						className={`px-3 py-1 rounded ${
-							filter === 'rejected' ? 'bg-red-500 text-white' : 'bg-gray-200'
-						}`}
-					>
-						Rejected
-					</button>
-				</div>
-
+				<TaskFilters filter={filter} setFilter={setFilter} />
 				{currentUser === 'admin' && (
 					<CreateTask taskList={taskList} setTaskList={setTaskList} />
 				)}
-
 				<RenderTasks
 					taskList={visibleTasks}
 					deleteTask={deleteTask}
