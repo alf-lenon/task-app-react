@@ -22,22 +22,22 @@ function TaskStats({ taskList }) {
 				<p className='font-bold'>{total}</p>
 			</div>
 
-			<div className='bg-pink-200 p-2 rounded'>
+			<div className='bg-gray-200 p-2 rounded'>
 				<p className='text-sm'>Pending</p>
 				<p className='font-bold'>{pending}</p>
 			</div>
 
-			<div className='bg-yellow-200 p-2 rounded'>
+			<div className='bg-gray-200 p-2 rounded'>
 				<p className='text-sm'>Waiting</p>
 				<p className='font-bold'>{waiting}</p>
 			</div>
 
-			<div className='bg-green-200 p-2 rounded'>
+			<div className='bg-gray-200 p-2 rounded'>
 				<p className='text-sm'>Approved</p>
 				<p className='font-bold'>{approved}</p>
 			</div>
 
-			<div className='bg-red-200 p-2 rounded'>
+			<div className='bg-gray-200 p-2 rounded'>
 				<p className='text-sm'>Rejected</p>
 				<p className='font-bold'>{rejected}</p>
 			</div>

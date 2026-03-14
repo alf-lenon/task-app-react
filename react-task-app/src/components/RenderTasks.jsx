@@ -11,6 +11,13 @@ function RenderTasks({
 	rejectTask,
 	currentUser,
 }) {
+	// Show message when state is empty
+	if (taskList.length === 0) {
+		return (
+			<p className='text-center text-gray-500 mt-8'>No tasks available.</p>
+		);
+	}
+
 	// Generate into HTML
 	return (
 		<div className='grid gap-4 sm:grid-cols-2'>
