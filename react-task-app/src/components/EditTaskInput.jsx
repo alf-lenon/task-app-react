@@ -39,11 +39,21 @@ function EditTaskInput({
 
 					<p className='text-sm text-gray-600'>Assigned to: {user}</p>
 
-					<p className='text-sm text-gray-600'>
+					<p
+						className={`text-sm ${
+							isOverdue ? 'text-red-500 font-semibold' : 'text-gray-600'
+						}`}
+					>
 						Deadline: {dayjs(deadline).format('MMMM D, YYYY')}
 					</p>
 
-					<p className='text-sm'>Status: {isOverdue ? 'Overdue' : status}</p>
+					<p
+						className={`text-sm font-medium ${
+							isOverdue ? 'text-red-600' : 'text-gray-700'
+						}`}
+					>
+						Status: {isOverdue ? 'Overdue' : status}
+					</p>
 
 					{currentUser === 'admin' && ( // Show only the delete and edit for 'admin'
 						<div className='flex gap-2 mt-2'>
