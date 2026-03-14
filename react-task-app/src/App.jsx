@@ -89,6 +89,9 @@ function App() {
 			if (filter === 'rejected') return task.approvalStatus === 'rejected';
 		});
 
+	// Users
+	const users = ['admin', 'Alf', 'Princess'];
+
 	return (
 		<div className='min-h-screen bg-gray-100 flex justify-center p-6'>
 			<div className='w-full max-w-2xl'>
@@ -96,27 +99,23 @@ function App() {
 					React Task Manager
 				</h1>
 				{/* Dashboard Switch */}
-				<div className='flex gap-2 mb-6 justify-center'>
-					<button
-						className={`bg-gray-200 px-3 py-1 rounded cursor-pointer ${currentUser === 'admin' ? 'bg-green-500 text-white' : 'bg-gray-200'}`}
-						onClick={() => setCurrentUser('admin')}
-					>
-						Admin
-					</button>
-
-					<button
-						className={`bg-gray-200 px-3 py-1 rounded cursor-pointer ${currentUser === 'Alf' ? 'bg-green-500 text-white' : 'bg-gray-200'}`}
-						onClick={() => setCurrentUser('Alf')}
-					>
-						Alf
-					</button>
-
-					<button
-						className={`bg-gray-200 px-3 py-1 rounded cursor-pointer ${currentUser === 'Princess' ? 'bg-green-500 text-white' : 'bg-gray-200'}`}
-						onClick={() => setCurrentUser('Princess')}
-					>
-						Princess
-					</button>
+				<div className='flex gap-2 mb-6 justify-center flex-wrap'>
+					{users.map(
+						// used .map for cleaner code
+						(user) => (
+							<button
+								key={user}
+								onClick={() => setCurrentUser(user)}
+								className={`px-3 py-1 rounded cursor-pointer ${
+									currentUser === user
+										? 'bg-green-500 text-white'
+										: 'bg-gray-200'
+								}`}
+							>
+								{user}
+							</button>
+						),
+					)}
 				</div>
 
 				<TaskFilters filter={filter} setFilter={setFilter} />

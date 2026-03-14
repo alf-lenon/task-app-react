@@ -1,6 +1,6 @@
 function TaskFilters({ filter, setFilter }) {
 	return (
-		<div className='flex gap-2 mb-4 flex-wrap'>
+		<div className='flex gap-2 mb-4 flex-wrap justify-center'>
 			<button
 				onClick={() => setFilter('all')}
 				className={`px-3 py-1 rounded cursor-pointer ${
