@@ -9,6 +9,7 @@ function EditTaskInput({
 	deadline,
 	deleteTask,
 	updateTask,
+	currentUser,
 }) {
 	const [isEditing, setIsEditing] = useState(false);
 	const [editedTask, setEditedTask] = useState(task);
@@ -44,21 +45,23 @@ function EditTaskInput({
 
 					<p className='text-sm'>Status: {isOverdue ? 'Overdue' : status}</p>
 
-					<div className='flex gap-2 mt-2'>
-						<button
-							onClick={() => deleteTask(id)}
-							className='text-red-500 cursor-pointer'
-						>
-							Delete
-						</button>
+					{currentUser === 'admin' && ( // Show only the delete and edit for 'admin'
+						<div className='flex gap-2 mt-2'>
+							<button
+								onClick={() => deleteTask(id)}
+								className='text-red-500 cursor-pointer'
+							>
+								Delete
+							</button>
 
-						<button
-							onClick={() => setIsEditing(true)}
-							className='text-blue-500 cursor-pointer'
-						>
-							Edit
-						</button>
-					</div>
+							<button
+								onClick={() => setIsEditing(true)}
+								className='text-blue-500 cursor-pointer'
+							>
+								Edit
+							</button>
+						</div>
+					)}
 				</>
 			)}
 		</>

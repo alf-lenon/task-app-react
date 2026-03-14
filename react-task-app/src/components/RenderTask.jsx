@@ -42,6 +42,7 @@ function RenderTask({
 				deadline={deadline}
 				deleteTask={deleteTask}
 				updateTask={updateTask}
+				currentUser={currentUser}
 			/>
 
 			<ProofUploader

@@ -75,6 +75,7 @@ function App() {
 	}
 
 	const [filter, setFilter] = useState('all'); // current selected filter
+
 	// Dashboard View (Admin || Users)
 	const visibleTasks = taskList
 		.filter((task) =>
