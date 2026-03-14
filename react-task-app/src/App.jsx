@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import CreateTask from './components/CreateTask';
 import RenderTasks from './components/RenderTasks';
 import TaskFilters from './components/TaskFilters';
+import TaskStats from './components/TaskStats';
 
 function App() {
 	// State for the current dashboard
@@ -120,6 +121,7 @@ function App() {
 				</div>
 
 				<TaskFilters filter={filter} setFilter={setFilter} />
+				<TaskStats taskList={taskList} />
 				{currentUser === 'admin' && (
 					<CreateTask taskList={taskList} setTaskList={setTaskList} />
 				)}
