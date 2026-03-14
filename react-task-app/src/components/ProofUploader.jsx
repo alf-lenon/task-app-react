@@ -7,7 +7,7 @@ function ProofUploader({ currentUser, proof, handleProofUpload }) {
 					<img
 						src={proof}
 						alt='Proof'
-						className='w-full max-w-xs rounded-lg shadow'
+						className='w-64 h-64 object-cover rounded-lg shadow'
 					/>
 				</div>
 			)}
