@@ -4,6 +4,7 @@ import RenderTasks from './components/RenderTasks';
 import TaskFilters from './components/TaskFilters';
 import TaskStats from './components/TaskStats';
 import Header from './components/Header';
+import Sidebar from './components/SideBar';
 function App() {
 	// State for the current dashboard
 	const [currentUser, setCurrentUser] = useState('admin');
@@ -99,12 +100,11 @@ function App() {
 			<Header />
 
 			<div className='flex'>
+				<Sidebar />
 				<div className='flex-1 p-6 flex justify-center'>
 					<div className='w-full max-w-4xl'>
 						<div className='w-full max-w-2xl'>
-							<h1 className='text-3xl font-bold mb-6 text-center'>
-								React Task Manager
-							</h1>
+							<h1 className='text-3xl font-bold mb-6'>React Task Manager</h1>
 							{/* Dashboard Switch */}
 							<div className='flex gap-2 mb-6 justify-center flex-wrap'>
 								{users.map(
