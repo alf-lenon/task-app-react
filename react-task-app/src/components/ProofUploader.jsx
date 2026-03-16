@@ -19,7 +19,7 @@ function ProofUploader({ currentUser, proof, handleProofUpload }) {
 
 					<input
 						type='file'
-						accept='image/*'
+						accept='image/png, image/jpeg, image/jpg'
 						onChange={handleProofUpload}
 						className='hidden'
 					/>

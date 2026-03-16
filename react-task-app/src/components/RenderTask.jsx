@@ -25,8 +25,27 @@ function RenderTask({
 
 		const reader = new FileReader();
 
-		reader.onloadend = () => {
-			submitProof(id, reader.result); // id, proofImage
+		reader.onload = (event) => {
+			const img = new Image();
+			img.src = event.target.result;
+
+			img.onload = () => {
+				const canvas = document.createElement('canvas');
+				const ctx = canvas.getContext('2d');
+
+				const MAX_WIDTH = 500;
+
+				const scale = MAX_WIDTH / img.width;
+
+				canvas.width = MAX_WIDTH;
+				canvas.height = img.height * scale;
+
+				ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+				const compressed = canvas.toDataURL('image/jpeg', 0.6);
+
+				submitProof(id, compressed);
+			};
 		};
 
 		reader.readAsDataURL(file);
