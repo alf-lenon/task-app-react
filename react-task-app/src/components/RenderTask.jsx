@@ -52,46 +52,53 @@ function RenderTask({
 	}
 
 	return (
-		<div className='bg-white p-4 rounded shadow mb-4'>
-			<EditTaskInput
-				id={id}
-				task={task}
-				status={status}
-				user={user}
-				deadline={deadline}
-				deleteTask={deleteTask}
-				updateTask={updateTask}
-				currentUser={currentUser}
-			/>
+		// Task Card
+		<div className='bg-slate-900 border border-slate-700 p-4 rounded-xl shadow hover:shadow-lg hover:-translate-y-1 transition'>
+			<div className='flex flex-col gap-3'>
+				<EditTaskInput
+					id={id}
+					task={task}
+					status={status}
+					user={user}
+					deadline={deadline}
+					deleteTask={deleteTask}
+					updateTask={updateTask}
+					currentUser={currentUser}
+				/>
 
-			<ProofUploader
-				currentUser={currentUser}
-				proof={proof}
-				handleProofUpload={handleProofUpload}
-			/>
-
-			<ProofModal currentUser={currentUser} proof={proof} />
-
-			<StatusBadge approvalStatus={approvalStatus} />
-
-			{/* ADMIN Approve / Reject */}
-			{currentUser === 'admin' && proof && approvalStatus === 'pending' && (
-				<div className='flex gap-2 mt-2'>
-					<button
-						onClick={() => approveTask(id)}
-						className='bg-green-200 px-2 py-1 rounded cursor-pointer'
-					>
-						Approve
-					</button>
-
-					<button
-						onClick={() => rejectTask(id)}
-						className='bg-red-200 px-2 py-1 rounded cursor-pointer'
-					>
-						Reject
-					</button>
+				<div className='mt-2'>
+					<ProofUploader
+						currentUser={currentUser}
+						proof={proof}
+						handleProofUpload={handleProofUpload}
+					/>
 				</div>
-			)}
+
+				<ProofModal currentUser={currentUser} proof={proof} />
+
+				<div className='flex items-center justify-between mt-2'>
+					<StatusBadge approvalStatus={approvalStatus} />
+				</div>
+
+				{/* ADMIN Approve / Reject */}
+				{currentUser === 'admin' && proof && approvalStatus === 'pending' && (
+					<div className='flex gap-2 mt-3'>
+						<button
+							onClick={() => approveTask(id)}
+							className='bg-green-600 hover:bg-green-700 px-3 py-1 rounded text-sm cursor-pointer'
+						>
+							Approve
+						</button>
+
+						<button
+							onClick={() => rejectTask(id)}
+							className='bg-red-600 hover:bg-red-700 px-3 py-1 rounded text-sm cursor-pointer'
+						>
+							Reject
+						</button>
+					</div>
+				)}
+			</div>
 		</div>
 	);
 }

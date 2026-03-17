@@ -6,12 +6,12 @@ function Sidebar() {
 	return (
 		<div
 			className={`bg-slate-900 border-r border-slate-700 min-h-screen transition-all duration-300 ${
-				collapsed ? 'w-16' : 'w-60'
+				collapsed ? 'w-16' : 'w-60' // If collapsed -> sidebar width = 16 (smaller)
 			}`}
 		>
 			<div className='flex justify-end p-3'>
 				<button
-					onClick={() => setCollapsed(!collapsed)}
+					onClick={() => setCollapsed(!collapsed)} // Default view -> Not collapsed
 					className='text-gray-400 hover:text-white cursor-pointer'
 				>
 					☰
@@ -27,7 +27,7 @@ function Sidebar() {
 					{!collapsed && <span>Profile</span>}
 				</button>
 
-				<button className='flex items-center gap-3 p-2 rounded bg-indigo-600 cursor-pointer'>
+				<button className='flex items-center gap-3 p-2 rounded  bg-indigo-600 cursor-pointer'>
 					{!collapsed && <span>Task Management</span>}
 				</button>
 

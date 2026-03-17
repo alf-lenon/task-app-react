@@ -35,9 +35,12 @@ function EditTaskInput({
 				</> // End of Edit View
 			) : (
 				<>
-					<h2 className='font-semibold text-lg'>{task}</h2>
-
-					<p className='text-sm text-gray-600'>Assigned to: {user}</p>
+					<div className='flex justify-between items-start'>
+						<div>
+							<p className='text-lg font-semibold text-white'>{task}</p>
+							<p className='text-sm text-gray-400'>Assigned to: {user}</p>
+						</div>
+					</div>
 
 					<p
 						className={`text-sm ${
