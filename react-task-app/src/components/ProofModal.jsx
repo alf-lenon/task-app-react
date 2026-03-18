@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { createPortal } from 'react-dom';
 function ProofModal({ currentUser, proof }) {
 	const [showProof, setShowProof] = useState(false);
 	return (
@@ -13,30 +14,37 @@ function ProofModal({ currentUser, proof }) {
 					</button>
 				)}
 
-			{showProof && (
-				<div
-					className='fixed inset-0 bg-black/70 flex items-center justify-center z-50'
-					onClick={() => setShowProof(false)}
-				>
-					<div
-						className='relative bg-white p-4 rounded-lg max-w-2xl w-full'
-						onClick={(e) => e.stopPropagation()}
-					>
-						<button
+			{showProof &&
+				createPortal(
+					<div className='fixed inset-0 z-[9999] flex items-center justify-center'>
+						{/* Overlay */}
+						<div
+							className='absolute inset-0 bg-black/80'
 							onClick={() => setShowProof(false)}
-							className='absolute top-2 right-2 text-gray-600 hover:text-black text-lg'
-						>
-							✕
-						</button>
-
-						<img
-							src={proof}
-							alt='Task proof'
-							className='w-full max-h-[70vh] object-contain rounded'
 						/>
-					</div>
-				</div>
-			)}
+
+						{/* Content */}
+						<div
+							className='relative z-10 flex items-center justify-center w-full h-full'
+							onClick={(e) => e.stopPropagation()}
+						>
+							<img
+								src={proof}
+								alt='Task proof'
+								className='max-w-[90vw] max-h-[80vh] object-contain rounded-xl shadow-lg'
+							/>
+
+							{/* Close */}
+							<button
+								onClick={() => setShowProof(false)}
+								className='absolute top-6 right-6 text-white text-2xl'
+							>
+								✕
+							</button>
+						</div>
+					</div>,
+					document.body,
+				)}
 		</>
 	);
 }
