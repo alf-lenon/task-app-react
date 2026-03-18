@@ -1,50 +1,25 @@
 function TaskFilters({ filter, setFilter }) {
 	return (
-		<div className='flex gap-2 mb-4 flex-wrap justify-center'>
-			<button
-				onClick={() => setFilter('all')}
-				className={`px-3 py-1 rounded cursor-pointer ${
-					filter === 'all' ? 'bg-gray-500 text-white' : 'bg-gray-200'
-				}`}
-			>
-				All
-			</button>
-
-			<button
-				onClick={() => setFilter('pending')}
-				className={`px-3 py-1 rounded cursor-pointer ${
-					filter === 'pending' ? 'bg-pink-500 text-white' : 'bg-gray-200'
-				}`}
-			>
-				Pending
-			</button>
-
-			<button
-				onClick={() => setFilter('waiting')}
-				className={`px-3 py-1 rounded cursor-pointer ${
-					filter === 'waiting' ? 'bg-yellow-500 text-white' : 'bg-gray-200'
-				}`}
-			>
-				Waiting Approval
-			</button>
-
-			<button
-				onClick={() => setFilter('approved')}
-				className={`px-3 py-1 rounded cursor-pointer ${
-					filter === 'approved' ? 'bg-green-500 text-white' : 'bg-gray-200'
-				}`}
-			>
-				Approved
-			</button>
-
-			<button
-				onClick={() => setFilter('rejected')}
-				className={`px-3 py-1 rounded cursor-pointer ${
-					filter === 'rejected' ? 'bg-red-500 text-white' : 'bg-gray-200'
-				}`}
-			>
-				Rejected
-			</button>
+		<div className='flex gap-2 mb-6 flex-wrap'>
+			{[
+				{ key: 'all', label: 'All' },
+				{ key: 'pending', label: 'Pending' },
+				{ key: 'waiting', label: 'Waiting' },
+				{ key: 'approved', label: 'Approved' },
+				{ key: 'rejected', label: 'Rejected' },
+			].map((item) => (
+				<button
+					key={item.key}
+					onClick={() => setFilter(item.key)} // show which key or label we clicked
+					className={`px-4 py-1.5 rounded-full text-sm transition ${
+						filter === item.key
+							? 'bg-indigo-600 text-white'
+							: 'bg-slate-800 text-gray-300 hover:bg-slate-700'
+					}`}
+				>
+					{item.label}
+				</button>
+			))}
 		</div>
 	);
 }
