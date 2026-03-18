@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-function Sidebar() {
+function Sidebar({ activePage, setActivePage }) {
 	const [collapsed, setCollapsed] = useState(false);
 
 	return (
@@ -19,19 +19,21 @@ function Sidebar() {
 			</div>
 
 			<nav className='flex flex-col gap-2 px-3'>
-				<button className='flex items-center gap-3 p-2 rounded hover:bg-slate-800 cursor-pointer'>
-					{!collapsed && <span>Dashboard</span>}
-				</button>
-
-				<button className='flex items-center gap-3 p-2 rounded hover:bg-slate-800 cursor-pointer'>
-					{!collapsed && <span>Profile</span>}
-				</button>
-
-				<button className='flex items-center gap-3 p-2 rounded  bg-indigo-600 cursor-pointer'>
+				<button
+					onClick={() => setActivePage('tasks')}
+					className={`flex items-center gap-3 p-2 rounded ${
+						activePage === 'tasks' ? 'bg-indigo-600' : 'hover:bg-slate-800'
+					}`}
+				>
 					{!collapsed && <span>Task Management</span>}
 				</button>
 
-				<button className='flex items-center gap-3 p-2 rounded hover:bg-slate-800 cursor-pointer'>
+				<button
+					onClick={() => setActivePage('progress')}
+					className={`flex items-center gap-3 p-2 rounded ${
+						activePage === 'progress' ? 'bg-indigo-600' : 'hover:bg-slate-800'
+					}`}
+				>
 					{!collapsed && <span>Progress</span>}
 				</button>
 			</nav>

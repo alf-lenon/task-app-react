@@ -95,12 +95,15 @@ function App() {
 	// Users
 	const users = ['admin', 'Alf', 'Princess'];
 
+	// View State
+	const [activePage, setActivePage] = useState('tasks'); // tasks = taskList
+
 	return (
 		<div className='min-h-screen bg-slate-950 text-white'>
 			<Header />
 
 			<div className='flex'>
-				<Sidebar />
+				<Sidebar activePage={activePage} setActivePage={setActivePage} />
 				<div className='flex-1 p-6 flex justify-center'>
 					<div className='w-full max-w-4xl'>
 						<div className='w-full max-w-2xl'>
@@ -125,20 +128,35 @@ function App() {
 								)}
 							</div>
 
-							<TaskFilters filter={filter} setFilter={setFilter} />
-							<TaskStats taskList={taskList} />
-							{currentUser === 'admin' && (
-								<CreateTask taskList={taskList} setTaskList={setTaskList} />
+							{activePage === 'tasks' && (
+								<>
+									<h1 className='text-3xl font-bold mb-6'>Task Management</h1>
+
+									<TaskFilters filter={filter} setFilter={setFilter} />
+
+									{currentUser === 'admin' && (
+										<CreateTask taskList={taskList} setTaskList={setTaskList} />
+									)}
+
+									<RenderTasks
+										taskList={visibleTasks}
+										deleteTask={deleteTask}
+										updateTask={updateTask}
+										submitProof={submitProof}
+										approveTask={approveTask}
+										rejectTask={rejectTask}
+										currentUser={currentUser}
+									/>
+								</>
 							)}
-							<RenderTasks
-								taskList={visibleTasks}
-								deleteTask={deleteTask}
-								updateTask={updateTask}
-								submitProof={submitProof}
-								approveTask={approveTask}
-								rejectTask={rejectTask}
-								currentUser={currentUser}
-							/>
+
+							{activePage === 'progress' && (
+								<>
+									<h1 className='text-3xl font-bold mb-6'>Progress Overview</h1>
+
+									<TaskStats taskList={taskList} />
+								</>
+							)}
 						</div>
 					</div>
 				</div>
