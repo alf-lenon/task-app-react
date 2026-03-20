@@ -1,6 +1,6 @@
 function TaskFilters({ filter, setFilter }) {
 	return (
-		<div className='flex gap-2 mb-6 flex-wrap'>
+		<div className='flex items-center justify-center gap-2 mb-6 flex-wrap'>
 			{[
 				{ key: 'all', label: 'All' },
 				{ key: 'pending', label: 'Pending' },

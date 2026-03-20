@@ -45,47 +45,86 @@ function CreateTask({ taskList, setTaskList }) {
 		setSelectedDeadline('');
 	}
 
+	const [isVisible, setIsVisible] = useState(false); // Create Task Content
+
+	const showCreateTask = () => {
+		setIsVisible(!isVisible); // Set Create Task Content to not visible
+	};
+
 	return (
-		<div className='bg-slate-900 border border-slate-700 p-4 rounded-xl mb-6'>
-			<div className='flex flex-col md:flex-row gap-3'>
-				{/* Task Input */}
-				<input
-					className='flex-1 bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500'
-					value={taskInput}
-					onChange={saveTaskInput}
-					onKeyDown={(e) => {
-						if (e.key === 'Enter') addTask();
-					}}
-					placeholder='Assign a new task...'
-				/>
+		<>
+			{/* Trigger Button */}
+			<button
+				className='bg-indigo-600 hover:bg-indigo-700 px-5 py-2 rounded-lg font-medium transition mb-6'
+				onClick={showCreateTask}
+			>
+				+ Add Task
+			</button>
 
-				{/* User Select */}
-				<select
-					className='bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white focus:outline-none'
-					value={selectedUser}
-					onChange={(event) => setSelectedUser(event.target.value)}
-				>
-					<option value='Alf'>Alf</option>
-					<option value='Princess'>Princess</option>
-				</select>
+			{/* Modal */}
+			{isVisible && (
+				<div className='fixed inset-0 z-[9999] flex items-center justify-center'>
+					{/* Overlay */}
+					<div
+						className='absolute inset-0 bg-black/70'
+						onClick={showCreateTask}
+					/>
 
-				{/* Deadline */}
-				<input
-					type='date'
-					className='bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white focus:outline-none'
-					value={selectedDeadline}
-					onChange={(event) => setSelectedDeadline(event.target.value)}
-				/>
+					{/* Modal Content */}
+					<div
+						className='relative z-10 bg-slate-900 border border-slate-700 p-6 rounded-xl w-full max-w-lg'
+						onClick={(e) => e.stopPropagation()}
+					>
+						{/* Close Button */}
+						<button
+							onClick={showCreateTask}
+							className='absolute top-3 right-3 text-gray-400 hover:text-white'
+						>
+							✕
+						</button>
 
-				{/* Add Button */}
-				<button
-					className='bg-indigo-600 hover:bg-indigo-700 px-5 py-2 rounded-lg font-medium transition'
-					onClick={addTask}
-				>
-					+ Add
-				</button>
-			</div>
-		</div>
+						{/* Title */}
+						<h2 className='text-xl font-bold mb-4'>Add New Task</h2>
+
+						{/* Create Task FORM */}
+						<div className='flex flex-col gap-3'>
+							<input
+								className='bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white'
+								value={taskInput}
+								onChange={saveTaskInput}
+								placeholder='Assign a new task...'
+							/>
+
+							<select
+								className='bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white'
+								value={selectedUser}
+								onChange={(event) => setSelectedUser(event.target.value)}
+							>
+								<option value='Alf'>Alf</option>
+								<option value='Princess'>Princess</option>
+							</select>
+
+							<input
+								type='date'
+								className='bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white'
+								value={selectedDeadline}
+								onChange={(event) => setSelectedDeadline(event.target.value)}
+							/>
+
+							<button
+								className='bg-indigo-600 hover:bg-indigo-700 px-5 py-2 rounded-lg font-medium transition'
+								onClick={() => {
+									addTask();
+									setIsVisible(false); // close after adding
+								}}
+							>
+								Add Task
+							</button>
+						</div>
+					</div>
+				</div>
+			)}
+		</>
 	);
 }
 
