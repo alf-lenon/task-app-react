@@ -107,7 +107,9 @@ function App() {
 				<div className='flex-1 p-6 flex justify-center'>
 					<div className='w-full max-w-4xl'>
 						<div className='w-full max-w-2xl'>
-							<h1 className='text-3xl font-bold mb-6'>React Task Manager</h1>
+							<h1 className='flex justify-center text-3xl font-bold mb-6'>
+								Users
+							</h1>
 							{/* Dashboard Switch */}
 							<div className='flex gap-2 mb-6 justify-center flex-wrap'>
 								{users.map(

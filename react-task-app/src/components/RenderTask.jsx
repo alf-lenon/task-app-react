@@ -2,6 +2,7 @@ import ProofUploader from './ProofUploader';
 import ProofModal from './ProofModal';
 import EditTaskInput from './EditTaskInput';
 import StatusBadge from './StatusBadge';
+import { useState } from 'react';
 
 function RenderTask({
 	id,
@@ -44,12 +45,14 @@ function RenderTask({
 
 				const compressed = canvas.toDataURL('image/jpeg', 0.6);
 
-				submitProof(id, compressed);
+				setPreview(compressed); // Temporary displays the proof
 			};
 		};
 
 		reader.readAsDataURL(file);
 	}
+
+	const [preview, setPreview] = useState(null); // State to store photo as temporary before uploading
 
 	return (
 		// Task Card
@@ -71,6 +74,10 @@ function RenderTask({
 						currentUser={currentUser}
 						proof={proof}
 						handleProofUpload={handleProofUpload}
+						preview={preview}
+						setPreview={setPreview}
+						submitProof={submitProof}
+						id={id}
 					/>
 				</div>
 
