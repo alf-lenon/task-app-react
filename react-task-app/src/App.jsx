@@ -1,82 +1,27 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import CreateTask from './components/CreateTask';
 import RenderTasks from './components/RenderTasks';
 import TaskFilters from './components/TaskFilters';
 import TaskStats from './components/TaskStats';
 import Header from './components/Header';
 import Sidebar from './components/SideBar';
+import useTasks from './hooks/useTasks';
 function App() {
 	// State for the current dashboard
 	const [currentUser, setCurrentUser] = useState('admin');
 
-	// First: Load saved data
-	const [taskList, setTaskList] = useState(() => {
-		const savedTasks = localStorage.getItem('tasks');
-		return savedTasks ? JSON.parse(savedTasks) : []; // If task exist (?) -> use them, if not (:) -> start empty
-	});
-
-	// Second: Save whenever state changes
-	useEffect(() => {
-		localStorage.setItem('tasks', JSON.stringify(taskList));
-	}, [taskList]); // Whenever taskList changes → save it to localStorage
-
-	// Delete Task Logic
-	function deleteTask(id) {
-		// Updater function + filter to delete each task (id)
-		setTaskList((prev) => prev.filter((task) => task.id !== id));
-	}
-
-	// Save and update task after editing
-	function updateTask(id, newTitle) {
-		setTaskList((prev) =>
-			prev.map((task) =>
-				task.id === id ? { ...task, title: newTitle } : task,
-			),
-		);
-	}
-
-	// USER: Submit proof
-	function submitProof(id, proofImage) {
-		setTaskList((prev) =>
-			prev.map((task) =>
-				task.id === id
-					? {
-							...task,
-							proof: proofImage,
-							status: 'completed',
-							approvalStatus: 'pending',
-						}
-					: task,
-			),
-		);
-	}
-
-	// ADMIN: Approve task
-	function approveTask(id) {
-		setTaskList((prev) =>
-			prev.map((task) =>
-				task.id === id ? { ...task, approvalStatus: 'approved' } : task,
-			),
-		);
-	}
-
-	// ADMIN: Reject task
-	function rejectTask(id) {
-		setTaskList((prev) =>
-			prev.map((task) =>
-				task.id === id
-					? {
-							...task,
-							approvalStatus: 'rejected',
-							status: 'pending',
-							proof: null,
-						}
-					: task,
-			),
-		);
-	}
-
 	const [filter, setFilter] = useState('all'); // current selected filter
+
+	// Hook
+	const {
+		taskList,
+		setTaskList,
+		deleteTask,
+		updateTask,
+		submitProof,
+		approveTask,
+		rejectTask,
+	} = useTasks();
 
 	// Dashboard View (Admin || Users)
 	const visibleTasks = taskList

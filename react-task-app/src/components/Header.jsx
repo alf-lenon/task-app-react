@@ -5,10 +5,6 @@ function Header() {
 				<span className='text-white'>Bahay ni</span>
 				<span className='text-indigo-400'>Daddy Jerk</span>
 			</h1>
-
-			<button className='border border-red-400 text-red-400 px-4 py-1.5 rounded-full hover:bg-red-500 hover:text-white transition'>
-				Logout
-			</button>
 		</header>
 	);
 }
